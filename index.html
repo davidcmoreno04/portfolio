@@ -43,15 +43,16 @@
       align-items: center;
     }
 
-    /* CONTENEDOR DEL OBJETO PDF NATIVO */
-    .slide object {
-      width: 85%;
-      height: 70vh; /* Espacio libre abajo para el caption-box */
-      border: none;
+    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO */
+    .slide img {
+      height: 75%;
+      width: auto;
+      max-width: 90%;
+      object-fit: contain;
       background-color: #1a1a1a;
       border-radius: 6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      margin-top: -40px; /* Eleva el visor para balancear el diseño */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      margin-top: -50px; /* Balance visual para dar espacio al texto */
     }
 
     /* Caja de texto inferior centrado */
@@ -68,14 +69,14 @@
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 10; /* Queda siempre encima del visor */
+      z-index: 10;
     }
 
     .caption-box h5 {
       margin: 0;
       color: #ffffff;
       font-size: 16px;
-      font-weight: 600; /* Peso semibold */
+      font-weight: 600;
       letter-spacing: 0.5px;
     }
 
@@ -95,13 +96,11 @@
       color: rgba(255,255,255,0.6);
       border: 1px solid rgba(255,255,255,0.1);
       
-      /* Dimensiones fijas idénticas para evitar elipse */
       width: 50px;
       height: 50px;
       border-radius: 50%;
       padding: 0;
       
-      /* Centrado de flechas internos con Flexbox */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -126,10 +125,7 @@
       
       <!-- SLIDE 1 -->
       <div class="slide">
-        <!-- El uso de <object> fuerza la lectura binaria directa del PDF omitiendo los bloqueos de iframe -->
-        <object data="CV DAVID CASTELLANOS MORENO.pdf" type="application/pdf">
-          <p>Tu navegador no puede mostrar este PDF. <a href="CV DAVID CASTELLANOS MORENO.pdf">Descárgalo aquí</a>.</p>
-        </object>
+        <img src="1.png" alt="Perfil Profesional">
         <div class="caption-box">
           <h5>Perfil Profesional</h5>
           <p>Juan David Castellanos Moreno — Comunicación Gráfica Publicitaria</p>
@@ -138,13 +134,37 @@
 
       <!-- SLIDE 2 -->
       <div class="slide">
-        <!-- Mismo objeto para el segundo slide -->
-        <object data="CV DAVID CASTELLANOS MORENO.pdf" type="application/pdf">
-          <p>Tu navegador no puede mostrar este PDF. <a href="CV DAVID CASTELLANOS MORENO.pdf">Descárgalo aquí</a>.</p>
-        </object>
+        <img src="2.png" alt="Experiencia y Proyectos">
         <div class="caption-box">
           <h5>Experiencia & Proyectos</h5>
           <p>Trayectoria en agencias, desarrollo de marcas y maquetación visual.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide">
+        <img src="3.png" alt="Proyectos Destacados">
+        <div class="caption-box">
+          <h5>Proyectos Destacados</h5>
+          <p>Conceptos creativos, identidad corporativa y campañas publicitarias.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="slide">
+        <img src="4.png" alt="Diseño Comercial">
+        <div class="caption-box">
+          <h5>Diseño Comercial</h5>
+          <p>Estrategia visual orientada a la conversión y branding corporativo.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="slide">
+        <img src="5.png" alt="Contacto y Cierre">
+        <div class="caption-box">
+          <h5>Contacto & Habilidades</h5>
+          <p>Herramientas de software, aptitudes profesionales y canales de comunicación.</p>
         </div>
       </div>
 
@@ -158,7 +178,7 @@
   <script>
     let currentIdx = 0;
     const stage = document.getElementById('stage');
-    const totalSlides = 2;
+    const totalSlides = 5; // Actualizado a tus 5 páginas de portafolio
 
     function moveSlide(direction) {
       currentIdx = (currentIdx + direction + totalSlides) % totalSlides;
