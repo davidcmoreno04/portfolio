@@ -41,6 +41,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden; /* Evita que el zoom de la imagen rompa los límites de la pantalla */
     }
 
     /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO */
@@ -52,7 +53,17 @@
       background-color: #1a1a1a;
       border-radius: 6px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      margin-top: -50px; /* Balance visual para dar espacio al texto */
+      margin-top: -50px; /* Balance visual para dar espacio al texto inferior */
+      
+      /* Transición fluida para el efecto de zoom */
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: zoom-in; /* Cambia el cursor para indicar que es interactivo */
+    }
+
+    /* EFECTO ZOOM AL PASAR EL CURSOR (HOVER) */
+    .slide img:hover {
+      transform: scale(1.25); /* Amplía la imagen un 25% */
+      z-index: 5;
     }
 
     /* Caja de texto inferior centrado */
@@ -70,6 +81,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       z-index: 10;
+      pointer-events: none; /* Permite que el mouse detecte la imagen "a través" de la caja de texto */
     }
 
     .caption-box h5 {
@@ -178,7 +190,7 @@
   <script>
     let currentIdx = 0;
     const stage = document.getElementById('stage');
-    const totalSlides = 5; // Actualizado a tus 5 páginas de portafolio
+    const totalSlides = 5;
 
     function moveSlide(direction) {
       currentIdx = (currentIdx + direction + totalSlides) % totalSlides;
