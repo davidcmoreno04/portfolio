@@ -76,7 +76,8 @@
     .img-container img {
       height: 100%;
       width: 100%;
-      object-fit: cover; /* Llena todo el marco en las páginas de la 2 a la 5 */
+      object-fit: cover; /* Llena todo el marco por defecto */
+      object-position: center center; /* Por defecto se centra horizontal y verticalmente */
       
       /* Origen inicial en el centro */
       transform-origin: center center;
@@ -85,9 +86,10 @@
       cursor: zoom-in;
     }
 
-    /* REGLA EXCLUSIVA PARA EL PRIMER SLIDE (MENOS ZOOM / VER ENTEGRA) */
-    .img-container.contain-img img {
-      object-fit: contain; /* Ajusta la primera imagen por completo sin recortes */
+    /* REGLA EXCLUSIVA PARA EL PRIMER SLIDE (ENFOQUE SUPERIOR CON ZOOM COOPERTURA) */
+    .img-container.focus-top img {
+      object-fit: cover !important; /* Mantiene la cobertura completa de los marcos */
+      object-position: top center !important; /* Enfoca la cámara del visor arriba para no cortar el texto */
     }
 
     /* Caja de texto inferior centrado */
@@ -159,9 +161,9 @@
   <div class="carousel-viewport">
     <div class="carousel-stage" id="stage">
       
-      <!-- SLIDE 1 (Se añade la clase 'contain-img' para que no se recorte) -->
+      <!-- SLIDE 1 (Usamos la clase 'focus-top' para enfocar el texto superior) -->
       <div class="slide active">
-        <div class="img-container contain-img">
+        <div class="img-container focus-top">
           <img src="1.png" alt="Perfil Profesional">
         </div>
         <div class="caption-box">
@@ -233,6 +235,15 @@
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
       slides[currentIdx].classList.add('active');
     }
+
+    // CONTROL POR TECLADO (Flechas físicas izquierda y derecha)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        moveSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        moveSlide(-1);
+      }
+    });
 
     // MOTOR GRÁFICO INTELLIGENT-PANNING (Paneo amortiguado continuo)
     document.querySelectorAll('.img-container').forEach(container => {
