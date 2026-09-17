@@ -45,13 +45,13 @@
       align-items: center;
       overflow: hidden; /* Evita que el zoom rompa la estructura exterior */
       
-      /* Sincronización agresiva de escala y opacidad para aumentar la sensación de velocidad */
+      /* Sincronización de escala y opacidad para aumentar la sensación de velocidad */
       transition: opacity 0.5s cubic-bezier(0.76, 0, 0.175, 1), transform 0.5s cubic-bezier(0.76, 0, 0.175, 1);
       opacity: 0.1;
-      transform: scale(0.92); /* Reducción más acentuada en el fondo para mayor impacto al entrar */
+      transform: scale(0.92);
     }
 
-    /* SLIDE ACTIVO (El que está en pantalla toma protagonismo) */
+    /* SLIDE ACTIVO */
     .slide.active {
       opacity: 1;
       transform: scale(1);
@@ -76,7 +76,9 @@
     .img-container img {
       height: 100%;
       width: 100%;
-      object-fit: contain;
+      
+      /* CAMBIO CLAVE: Llena todo el marco por defecto eliminando bordes vacíos */
+      object-fit: cover; 
       
       /* Origen inicial en el centro */
       transform-origin: center center;
@@ -154,7 +156,7 @@
   <div class="carousel-viewport">
     <div class="carousel-stage" id="stage">
       
-      <!-- SLIDE 1 (Inicia activo por defecto) -->
+      <!-- SLIDE 1 -->
       <div class="slide active">
         <div class="img-container">
           <img src="1.png" alt="Perfil Profesional">
@@ -223,16 +225,9 @@
     const totalSlides = slides.length;
 
     function moveSlide(direction) {
-      // Quitamos la clase activa al slide anterior antes de movernos
       slides[currentIdx].classList.remove('active');
-
-      // Calculamos la nueva posición
       currentIdx = (currentIdx + direction + totalSlides) % totalSlides;
-      
-      // Desplazamos el contenedor global
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
-
-      // Activamos el nuevo slide con la misma fuerza elástica
       slides[currentIdx].classList.add('active');
     }
 
@@ -242,18 +237,15 @@
 
       container.addEventListener('mousemove', (e) => {
         const rect = container.getBoundingClientRect();
-        
-        // Mapeo matemático exacto de coordenadas con desplazamiento extendido
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        // Modificamos el transform-origin dinámicamente
         img.style.transformOrigin = `${x}% ${y}%`;
-        img.style.transform = 'scale(2.5)';
+        // Multiplica la escala desde el tamaño completo base
+        img.style.transform = 'scale(2.2)';
       });
 
       container.addEventListener('mouseleave', () => {
-        // Retorno elástico amortiguado a la posición inicial
         img.style.transformOrigin = 'center center';
         img.style.transform = 'scale(1)';
       });
