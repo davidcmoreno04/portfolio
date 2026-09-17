@@ -41,29 +41,34 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden; /* Evita que el zoom de la imagen rompa los límites de la pantalla */
+      overflow: hidden; /* Evita que el zoom rompa la estructura exterior */
+    }
+
+    /* CONTENEDOR DE LA IMAGEN (Asegura el comportamiento dinámico) */
+    .img-container {
+      height: 75%;
+      width: 85%;
+      max-width: 900px;
+      margin-top: -50px;
+      overflow: hidden; /* Corta el excedente de la imagen cuando hace zoom */
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO */
-    .slide img {
-      height: 75%;
-      width: auto;
-      max-width: 90%;
+    .img-container img {
+      height: 100%;
+      width: 100%;
       object-fit: contain;
-      background-color: #1a1a1a;
-      border-radius: 6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      margin-top: -50px; /* Balance visual para dar espacio al texto inferior */
       
-      /* Transición fluida para el efecto de zoom */
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      cursor: zoom-in; /* Cambia el cursor para indicar que es interactivo */
-    }
-
-    /* EFECTO ZOOM AL PASAR EL CURSOR (HOVER) */
-    .slide img:hover {
-      transform: scale(1.25); /* Amplía la imagen un 25% */
-      z-index: 5;
+      /* Origen de transformación dinámico controlado por JavaScript */
+      transform-origin: center center;
+      transition: transform 0.1s ease-out;
+      cursor: zoom-in;
     }
 
     /* Caja de texto inferior centrado */
@@ -81,7 +86,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       z-index: 10;
-      pointer-events: none; /* Permite que el mouse detecte la imagen "a través" de la caja de texto */
+      pointer-events: none; /* El mouse pasa de largo para no estorbar al zoom */
     }
 
     .caption-box h5 {
@@ -137,7 +142,9 @@
       
       <!-- SLIDE 1 -->
       <div class="slide">
-        <img src="1.png" alt="Perfil Profesional">
+        <div class="img-container">
+          <img src="1.png" alt="Perfil Profesional">
+        </div>
         <div class="caption-box">
           <h5>Perfil Profesional</h5>
           <p>Juan David Castellanos Moreno — Comunicación Gráfica Publicitaria</p>
@@ -146,7 +153,9 @@
 
       <!-- SLIDE 2 -->
       <div class="slide">
-        <img src="2.png" alt="Experiencia y Proyectos">
+        <div class="img-container">
+          <img src="2.png" alt="Experiencia y Proyectos">
+        </div>
         <div class="caption-box">
           <h5>Experiencia & Proyectos</h5>
           <p>Trayectoria en agencias, desarrollo de marcas y maquetación visual.</p>
@@ -155,7 +164,9 @@
 
       <!-- SLIDE 3 -->
       <div class="slide">
-        <img src="3.png" alt="Proyectos Destacados">
+        <div class="img-container">
+          <img src="3.png" alt="Proyectos Destacados">
+        </div>
         <div class="caption-box">
           <h5>Proyectos Destacados</h5>
           <p>Conceptos creativos, identidad corporativa y campañas publicitarias.</p>
@@ -164,7 +175,11 @@
 
       <!-- SLIDE 4 -->
       <div class="slide">
-        <img src="4.png" alt="Diseño Comercial">
+        <div class="img-container">
+          <div class="img-container">
+            <img src="4.png" alt="Diseño Comercial">
+          </div>
+        </div>
         <div class="caption-box">
           <h5>Diseño Comercial</h5>
           <p>Estrategia visual orientada a la conversión y branding corporativo.</p>
@@ -173,7 +188,9 @@
 
       <!-- SLIDE 5 -->
       <div class="slide">
-        <img src="5.png" alt="Contacto y Cierre">
+        <div class="img-container">
+          <img src="5.png" alt="Contacto y Cierre">
+        </div>
         <div class="caption-box">
           <h5>Contacto & Habilidades</h5>
           <p>Herramientas de software, aptitudes profesionales y canales de comunicación.</p>
@@ -196,6 +213,28 @@
       currentIdx = (currentIdx + direction + totalSlides) % totalSlides;
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
     }
+
+    // MOTOR GRÁFICO INTELLIGENT-ZOOM (Sigue el movimiento del cursor)
+    document.querySelectorAll('.img-container').forEach(container => {
+      const img = container.querySelector('img');
+
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        // Calculamos las coordenadas exactas del mouse dentro de la imagen
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        // Movemos el punto central de la imagen al mouse y escalamos x2 (200%)
+        img.style.transformOrigin = `${x}% ${y}%`;
+        img.style.transform = 'scale(2)';
+      });
+
+      container.addEventListener('mouseleave', () => {
+        // Al sacar el mouse, la imagen regresa a su tamaño natural de forma limpia
+        img.style.transformOrigin = 'center center';
+        img.style.transform = 'scale(1)';
+      });
+    });
   </script>
 </body>
 </html>
