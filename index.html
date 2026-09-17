@@ -14,7 +14,7 @@
       overflow: hidden;
       background-color: #111111;
       
-      /* FUENTE CAMBIADA A HELVETICA */
+      /* FUENTE HELVETICA */
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -32,8 +32,8 @@
       height: 100%;
       display: flex;
       
-      /* TRANSICIÓN AMORTIGUADA PREMIUM (Efecto elástico de frenado) */
-      transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+      /* TRANSICIÓN CHALKY SMOOTH (Frenado amortiguado de seda, más lento y denso) */
+      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .slide {
@@ -45,10 +45,10 @@
       align-items: center;
       overflow: hidden; /* Evita que el zoom rompa la estructura exterior */
       
-      /* Efecto cinemático para los slides en segundo plano */
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      opacity: 0.3;
-      transform: scale(0.95);
+      /* Sincronización de desvanecimiento con el paneo de fondo */
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.2;
+      transform: scale(0.96);
     }
 
     /* SLIDE ACTIVO (El que está en pantalla toma protagonismo) */
@@ -232,7 +232,7 @@
       // Desplazamos el contenedor global
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
 
-      // Añadimos la clase activa al nuevo slide en pantalla
+      // En la misma sincronización elástica, activamos el nuevo slide
       slides[currentIdx].classList.add('active');
     }
 
