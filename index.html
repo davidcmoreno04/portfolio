@@ -6,17 +6,21 @@
   <title>Portafolio - Juan David Castellanos Moreno</title>
   
   <style>
+    /* CSS Puro sin dependencias externas */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
       overflow: hidden;
       background-color: #111111;
+      
+      /* FUENTE INTERFAZ MODERNA */
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Estructura del Carrusel */
     .carousel-viewport {
       position: relative;
       width: 100%;
@@ -39,10 +43,10 @@
       align-items: center;
     }
 
-    /* ESTILO PARA EL PDF DE GOOGLE DRIVE */
+    /* ESTILO PARA EL PDF LOCAL */
     .slide iframe {
       width: 85%;
-      height: 70vh; /* Ajustado para dar espacio al cuadro de texto inferior */
+      height: 70vh; /* Espacio libre abajo para el caption-box */
       border: none;
       background-color: #1a1a1a;
       border-radius: 6px;
@@ -50,6 +54,7 @@
       margin-top: -40px; /* Eleva el visor para balancear el diseño */
     }
 
+    /* Caja de texto inferior centrado */
     .caption-box {
       position: absolute;
       bottom: 40px;
@@ -63,14 +68,14 @@
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      z-index: 10; /* Asegura que el texto quede por encima de cualquier elemento */
+      z-index: 10; /* Queda siempre encima del visor */
     }
 
     .caption-box h5 {
       margin: 0;
       color: #ffffff;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 600; /* Peso semibold */
       letter-spacing: 0.5px;
     }
 
@@ -81,7 +86,7 @@
       font-weight: 400;
     }
 
-    /* BOTONES TOTALMENTE CIRCULARES EN HOVER */
+    /* Botones de navegación perfectamente circulares */
     .nav-btn {
       position: absolute;
       top: 50%;
@@ -90,13 +95,13 @@
       color: rgba(255,255,255,0.6);
       border: 1px solid rgba(255,255,255,0.1);
       
-      /* Tamaño fijo simétrico para evitar distorsión */
+      /* Dimensiones fijas idénticas para evitar elipse */
       width: 50px;
       height: 50px;
       border-radius: 50%;
       padding: 0;
       
-      /* Centrado de la flecha interior */
+      /* Centrado de flechas internos con Flexbox */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,8 +126,8 @@
       
       <!-- SLIDE 1 -->
       <div class="slide">
-        <!-- Se usa el enlace del documento con la terminación /preview -->
-        <iframe src="https://google.com" allow="autoplay"></iframe>
+        <!-- Carga el archivo PDF local de forma nativa e inmediata -->
+        <iframe src="cv-david-castellanos.pdf" allow="autoplay"></iframe>
         <div class="caption-box">
           <h5>Perfil Profesional</h5>
           <p>Juan David Castellanos Moreno — Comunicación Gráfica Publicitaria</p>
@@ -131,8 +136,8 @@
 
       <!-- SLIDE 2 -->
       <div class="slide">
-        <!-- Si tienes una segunda página o un segundo archivo, cambia el ID aquí. Dejé el mismo de ejemplo -->
-        <iframe src="https://google.com" allow="autoplay"></iframe>
+        <!-- Si en un futuro divides tu portafolio en varios PDFs, puedes cambiar el nombre aquí -->
+        <iframe src="cv-david-castellanos.pdf" allow="autoplay"></iframe>
         <div class="caption-box">
           <h5>Experiencia & Proyectos</h5>
           <p>Trayectoria en agencias, desarrollo de marcas y maquetación visual.</p>
@@ -141,6 +146,7 @@
 
     </div>
 
+    <!-- Controles nativos circulares -->
     <button class="nav-btn prev" onclick="moveSlide(-1)">❮</button>
     <button class="nav-btn next" onclick="moveSlide(1)">❯</button>
   </div>
