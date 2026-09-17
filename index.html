@@ -62,7 +62,10 @@
       height: 75%;
       width: 85%;
       max-width: 900px;
-      margin-top: -50px;
+      
+      /* AJUSTE CLAVE: Se elevó a -80px para mover toda la imagen un poco más hacia arriba */
+      margin-top: -80px; 
+      
       overflow: hidden; /* Corta el excedente para el efecto ventana de paneo */
       border-radius: 6px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -72,24 +75,17 @@
       align-items: center;
     }
 
-    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (POR DEFECTO EN COVER) */
+    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (DISEÑO ORIGINAL SIN RECORTE) */
     .img-container img {
       height: 100%;
       width: 100%;
-      object-fit: cover; /* Llena todo el marco por defecto */
-      object-position: center center; /* Por defecto se centra horizontal y verticalmente */
+      object-fit: contain; /* Volvemos al original para ver la página completa */
       
       /* Origen inicial en el centro */
       transform-origin: center center;
       /* Suavizado amortiguado para simular inercia en el panning */
       transition: transform-origin 0.25s cubic-bezier(0.1, 0.8, 0.2, 1), transform 0.3s ease-out;
       cursor: zoom-in;
-    }
-
-    /* REGLA EXCLUSIVA PARA EL PRIMER SLIDE (ENFOQUE SUPERIOR CON ZOOM COOPERTURA) */
-    .img-container.focus-top img {
-      object-fit: cover !important; /* Mantiene la cobertura completa de los marcos */
-      object-position: top center !important; /* Enfoca la cámara del visor arriba para no cortar el texto */
     }
 
     /* Caja de texto inferior centrado */
@@ -161,9 +157,9 @@
   <div class="carousel-viewport">
     <div class="carousel-stage" id="stage">
       
-      <!-- SLIDE 1 (Usamos la clase 'focus-top' para enfocar el texto superior) -->
+      <!-- SLIDE 1 -->
       <div class="slide active">
-        <div class="img-container focus-top">
+        <div class="img-container">
           <img src="1.png" alt="Perfil Profesional">
         </div>
         <div class="caption-box">
