@@ -70,6 +70,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: transform 0.3s ease; /* Permite que el desplazamiento inicial sea fluido */
+    }
+
+    /* REGLA EXCLUSIVA PARA EL PRIMER SLIDE: Desplaza el contenedor ligeramente hacia arriba */
+    .img-container.slide-uno {
+      transform: translateY(-35px); /* Eleva la primera imagen para ajustar el texto del centro */
     }
 
     /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (LLENA EL MARCO POR DEFECTO) */
@@ -154,9 +160,9 @@
   <div class="carousel-viewport">
     <div class="carousel-stage" id="stage">
       
-      <!-- SLIDE 1 -->
+      <!-- SLIDE 1 (Se añade la clase 'slide-uno' para corregir su encaje vertical) -->
       <div class="slide active">
-        <div class="img-container">
+        <div class="img-container slide-uno">
           <img src="1.png" alt="Perfil Profesional">
         </div>
         <div class="caption-box">
