@@ -62,7 +62,10 @@
       height: 75%;
       width: 85%;
       max-width: 900px;
-      margin-top: -50px;
+      
+      /* AJUSTE CLAVE: Se elevó a -80px para mover toda la imagen un poco más hacia arriba */
+      margin-top: -80px; 
+      
       overflow: hidden; /* Corta el excedente para el efecto ventana de paneo */
       border-radius: 6px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -70,19 +73,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 0.3s ease; /* Permite que el desplazamiento inicial sea fluido */
     }
 
-    /* REGLA EXCLUSIVA PARA EL PRIMER SLIDE: Desplaza el contenedor ligeramente hacia arriba */
-    .img-container.slide-uno {
-      transform: translateY(-35px); /* Eleva la primera imagen para ajustar el texto del centro */
-    }
-
-    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (LLENA EL MARCO POR DEFECTO) */
+    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (DISEÑO ORIGINAL SIN RECORTE) */
     .img-container img {
       height: 100%;
       width: 100%;
-      object-fit: cover; 
+      object-fit: contain; /* Volvemos al original para ver la página completa */
       
       /* Origen inicial en el centro */
       transform-origin: center center;
@@ -160,9 +157,9 @@
   <div class="carousel-viewport">
     <div class="carousel-stage" id="stage">
       
-      <!-- SLIDE 1 (Se añade la clase 'slide-uno' para corregir su encaje vertical) -->
+      <!-- SLIDE 1 -->
       <div class="slide active">
-        <div class="img-container slide-uno">
+        <div class="img-container">
           <img src="1.png" alt="Perfil Profesional">
         </div>
         <div class="caption-box">
