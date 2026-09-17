@@ -175,10 +175,9 @@
 
       <!-- SLIDE 4 -->
       <div class="slide">
+        <!-- Corregido: Se removió el contenedor duplicado -->
         <div class="img-container">
-          <div class="img-container">
-            <img src="4.png" alt="Diseño Comercial">
-          </div>
+          <img src="4.png" alt="Diseño Comercial">
         </div>
         <div class="caption-box">
           <h5>Diseño Comercial</h5>
@@ -220,17 +219,14 @@
 
       container.addEventListener('mousemove', (e) => {
         const rect = container.getBoundingClientRect();
-        // Calculamos las coordenadas exactas del mouse dentro de la imagen
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        // Movemos el punto central de la imagen al mouse y escalamos x2 (200%)
         img.style.transformOrigin = `${x}% ${y}%`;
         img.style.transform = 'scale(2)';
       });
 
       container.addEventListener('mouseleave', () => {
-        // Al sacar el mouse, la imagen regresa a su tamaño natural de forma limpia
         img.style.transformOrigin = 'center center';
         img.style.transform = 'scale(1)';
       });
