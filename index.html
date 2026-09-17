@@ -44,13 +44,13 @@
       overflow: hidden; /* Evita que el zoom rompa la estructura exterior */
     }
 
-    /* CONTENEDOR DE LA IMAGEN (Asegura el comportamiento dinámico) */
+    /* CONTENEDOR DE LA IMAGEN (Física de Panning) */
     .img-container {
       height: 75%;
       width: 85%;
       max-width: 900px;
       margin-top: -50px;
-      overflow: hidden; /* Corta el excedente de la imagen cuando hace zoom */
+      overflow: hidden; /* Corta el excedente para el efecto ventana de paneo */
       border-radius: 6px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
       background-color: #1a1a1a;
@@ -65,9 +65,10 @@
       width: 100%;
       object-fit: contain;
       
-      /* Origen de transformación dinámico controlado por JavaScript */
+      /* Origen inicial en el centro */
       transform-origin: center center;
-      transition: transform 0.1s ease-out;
+      /* Suavizado amortiguado para simular inercia en el panning */
+      transition: transform-origin 0.25s cubic-bezier(0.1, 0.8, 0.2, 1), transform 0.3s ease-out;
       cursor: zoom-in;
     }
 
@@ -86,7 +87,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       z-index: 10;
-      pointer-events: none; /* El mouse pasa de largo para no estorbar al zoom */
+      pointer-events: none; /* El mouse pasa de largo para no estorbar al panning */
     }
 
     .caption-box h5 {
@@ -175,7 +176,6 @@
 
       <!-- SLIDE 4 -->
       <div class="slide">
-        <!-- Corregido: Se removió el contenedor duplicado -->
         <div class="img-container">
           <img src="4.png" alt="Diseño Comercial">
         </div>
@@ -213,20 +213,25 @@
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
     }
 
-    // MOTOR GRÁFICO INTELLIGENT-ZOOM (Sigue el movimiento del cursor)
+    // MOTOR GRÁFICO INTELLIGENT-PANNING (Paneo amortiguado continuo)
     document.querySelectorAll('.img-container').forEach(container => {
       const img = container.querySelector('img');
 
       container.addEventListener('mousemove', (e) => {
         const rect = container.getBoundingClientRect();
+        
+        // Mapeo matemático exacto de coordenadas con desplazamiento extendido
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
 
+        // Modificamos el transform-origin dinámicamente
         img.style.transformOrigin = `${x}% ${y}%`;
-        img.style.transform = 'scale(2)';
+        // Escalamos un poco más (2.5) para acentuar el efecto cinemático de paneo
+        img.style.transform = 'scale(2.5)';
       });
 
       container.addEventListener('mouseleave', () => {
+        // Retorno elástico amortiguado a la posición inicial
         img.style.transformOrigin = 'center center';
         img.style.transform = 'scale(1)';
       });
