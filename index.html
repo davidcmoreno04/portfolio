@@ -32,8 +32,8 @@
       height: 100%;
       display: flex;
       
-      /* TRANSICIÓN CHALKY SMOOTH (Frenado amortiguado de seda, más lento y denso) */
-      transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      /* TRANSICIÓN CON FUERZA Y DINAMISMO (Aceleración explosiva + gran frenado ease-out) */
+      transition: transform 0.6s cubic-bezier(0.76, 0, 0.175, 1);
     }
 
     .slide {
@@ -45,10 +45,10 @@
       align-items: center;
       overflow: hidden; /* Evita que el zoom rompa la estructura exterior */
       
-      /* Sincronización de desvanecimiento con el paneo de fondo */
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0.2;
-      transform: scale(0.96);
+      /* Sincronización agresiva de escala y opacidad para aumentar la sensación de velocidad */
+      transition: opacity 0.5s cubic-bezier(0.76, 0, 0.175, 1), transform 0.5s cubic-bezier(0.76, 0, 0.175, 1);
+      opacity: 0.1;
+      transform: scale(0.92); /* Reducción más acentuada en el fondo para mayor impacto al entrar */
     }
 
     /* SLIDE ACTIVO (El que está en pantalla toma protagonismo) */
@@ -232,7 +232,7 @@
       // Desplazamos el contenedor global
       stage.style.transform = `translateX(-${currentIdx * 100}%)`;
 
-      // En la misma sincronización elástica, activamos el nuevo slide
+      // Activamos el nuevo slide con la misma fuerza elástica
       slides[currentIdx].classList.add('active');
     }
 
@@ -249,7 +249,6 @@
 
         // Modificamos el transform-origin dinámicamente
         img.style.transformOrigin = `${x}% ${y}%`;
-        // Escalamos un poco más (2.5) para acentuar el efecto cinemático de paneo
         img.style.transform = 'scale(2.5)';
       });
 
