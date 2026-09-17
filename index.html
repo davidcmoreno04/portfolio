@@ -62,10 +62,7 @@
       height: 75%;
       width: 85%;
       max-width: 900px;
-      
-      /* AJUSTE CLAVE: Se elevó a -80px para mover toda la imagen un poco más hacia arriba */
-      margin-top: -80px; 
-      
+      margin-top: -50px;
       overflow: hidden; /* Corta el excedente para el efecto ventana de paneo */
       border-radius: 6px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -75,11 +72,11 @@
       align-items: center;
     }
 
-    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (DISEÑO ORIGINAL SIN RECORTE) */
+    /* CONTROL DE LAS IMÁGENES DEL PORTAFOLIO (LLENA EL MARCO POR DEFECTO) */
     .img-container img {
       height: 100%;
       width: 100%;
-      object-fit: contain; /* Volvemos al original para ver la página completa */
+      object-fit: cover; 
       
       /* Origen inicial en el centro */
       transform-origin: center center;
